@@ -1,0 +1,19 @@
+{
+  "name": "moviedb",
+  "version": "1.0.0",
+  "description": "server for selina home assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slevinger/moviedb.git"
+  },
+  "author": "Shir Levinger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slevinger/moviedb/issues"
+  },
+  "homepage": "https://github.com/Slevinger/moviedb#readme"
+}
