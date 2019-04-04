@@ -3,23 +3,54 @@ import logo from "./logo.svg";
 import axios from "axios";
 import "./App.css";
 
+const NOW_PLAYING_MOVIES_URL =
+  "https://api.themoviedb.org/3/movie/now_playing?api_key=d52d8a839b115e7632447aaf98f1c70d&region=us";
+
 class App extends Component {
   constructor() {
     super();
 
+    this.likeMovie = this.likeMovie.bind(this);
+
     this.state = {
-      movies: ""
+      movies: null,
+      favorites: {}
     };
   }
 
   componentDidMount() {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=d52d8a839b115e7632447aaf98f1c70d&region=us"
-      )
-      .then(({ data: { results: movies } }) => {
-        this.setState({ movies });
-      });
+    axios.get(NOW_PLAYING_MOVIES_URL).then(({ data: { results: movies } }) => {
+      this.setState({ movies });
+    });
+  }
+
+  likeMovie(movieId) {
+    const { favorites } = this.state;
+
+    const newFavorites = { ...favorites, [movieId]: true };
+    this.setState({ favorites: newFavorites });
+  }
+
+  renderMovie(movie) {
+    const { favorites } = this.state;
+    const isMovieLiked = favorites[movie.id];
+
+    return (
+      <div class="movie">
+        <img
+          class="movie-image"
+          src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+        />
+        <div
+          class="like-star-wrapper"
+          onClick={this.likeMovie.bind(this, movie.id)}
+        >
+          <span class={`like-star ${isMovieLiked ? "movie-liked" : ""}`}>
+            ★
+          </span>
+        </div>
+      </div>
+    );
   }
 
   renderMovies() {
@@ -28,14 +59,7 @@ class App extends Component {
     return (
       movies &&
       movies.map(movie => {
-        return (
-          <div class="movie">
-            <img
-              class="movie-image"
-              src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-            />
-          </div>
-        );
+        return this.renderMovie(movie);
       })
     );
   }
