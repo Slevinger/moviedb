@@ -7,8 +7,8 @@ const NOW_PLAYING_MOVIES_URL =
   "https://api.themoviedb.org/3/movie/now_playing?api_key=d52d8a839b115e7632447aaf98f1c70d&region=us";
 
 export default class MoviesComponenet extends React.PureComponent {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.likeMovie = this.likeMovie.bind(this);
 

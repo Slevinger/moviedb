@@ -5,4 +5,22 @@
   flex-wrap: wrap;
   text-align: center;
   background: lightblue;
+  justify-content: center;
+}
+
+.form__btn {
+  margin: 10px;
+  border: thin solid lightgray;
+  width: 100px;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgb(200, 200, 200);
+}
+.form__btn:hover {
+  background-color: rgb(170, 170, 170);
+}
+.form__btns {
+  flex-direction: row;
+  display: flex;
 }

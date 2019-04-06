@@ -1,6 +1,10 @@
 // a library to handle response
 const express = require("express");
+const DataBase = require("./dataBase");
+
 const bodyParser = require("body-parser");
+
+const db = new DataBase();
 
 let PORT = 8080;
 
@@ -16,38 +20,83 @@ app.all("*", function(req, res, next) {
 app.use(bodyParser.json());
 
 const response = function(res) {
+  res.setHeader("Content-type", "application/json; charset=utf-8");
   responseSent = false;
-  return function(code, msg) {
+  return function(code, message) {
     if (!responseSent) {
       responseSent = true;
       res.statusCode = code;
-      res.send(msg);
+      res.send({ message });
     }
   };
 };
 
-app.post("/login", function(req, res) {
+app.post("/users/add", async function(req, res) {
+  const respond = response(res);
   try {
-    let respond = response(res);
-    let { email, password, rpassword } = req.body;
-    console.log(`got the email : ${email}`);
-    console.log(`got the password : ${password}`);
-    console.log(`got the rpassword : ${rpassword}`);
-    // return this.client.get(url,(err,result)=>{
-    //   if (result) {
-    //     return res.status(200).json({shortUrl :result});
-    //   } else {
-    //     this.keys[url] = `newKey_${this.size++}`;
-    //     this.shortUrl[this.keys[url]] = url;
-    //     this.client.set(this.keys[url], url);
-    //     this.client.set(url, this.keys[url]);
-    //     return res.status(200).json({ shortUrl: this.keys[url],url:url});
-    //   }
-    // });
+    res.setHeader("Content-type", "application/json; charset=utf-8");
+    const { email, password, re_password, permissions } = req.body;
+    await db.usersApi.addUser(
+      email,
+      password,
+      re_password,
+      permissions,
+      respond
+    );
     respond(200, "success");
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
+    respond(400, err);
   }
+});
+
+app.post("/users/remove", async function(req, res) {
+  let respond = response(res);
+  try {
+    const { user_id } = req.body;
+    let user = await db.usersApi.removeUser(user_id, respond);
+    respond(200, `User ${user.email}, was deleted`);
+  } catch (err) {
+    console.log(err);
+    respond(400, err);
+  }
+});
+
+app.post("/users/login", async function(req, res) {
+  const respond = response(res);
+  try {
+    const { email, password } = req.body;
+    let result = await db.usersApi.login(email, password, respond);
+    respond(200, result);
+  } catch (err) {
+    console.log(err);
+    respond(400, err);
+  }
+});
+
+app.post("/users/get", async function(req, res) {
+  let respond = response(res);
+  const { token, user_id } = req.body;
+  let ret = await db.usersApi.getUserList(user_id, token);
+  respond(200, ret);
+});
+
+app.post("/user/remove/favorite", async function(req, res) {
+  let respond = response(res);
+  const userId = req.body.user_id;
+  const fovoriteId = req.body.focorite_id; // todo get it from the event id
+  await db.usersApi.removeFromFavorites(userId, fovoriteId, respond);
+  //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
+  respond(200, "success");
+});
+
+app.post("/user/add/favorite", async function(req, res) {
+  let respond = response(res);
+  const userId = req.body.user_id;
+  const fovoriteId = req.body.focorite_id; // todo get it from the event id
+  await db.usersApi.addToFavorites(userId, fovoriteId, respond);
+  //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
+  respond(200, "success");
 });
 
 let server = app.listen(PORT, () =>
