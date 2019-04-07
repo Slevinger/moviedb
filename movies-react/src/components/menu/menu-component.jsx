@@ -1,7 +1,6 @@
 import React from "react";
 import "./menu-component.css";
 import MenuItem from "./menu-item-component";
-import UsersDialog from "../dialogs/users-dialog-component";
 
 export default class Menu extends React.PureComponent {
   constructor(props) {

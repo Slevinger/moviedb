@@ -67,7 +67,11 @@ class App extends Component {
           />
         )}
         {this.state.dialog && this.state.dialog == "users" ? (
-          <UsersDialog userId={this.state._id} token={this.state.token} />
+          <UsersDialog
+            setState={this.setAppState.bind(this)}
+            userId={this.state._id}
+            token={this.state.token}
+          />
         ) : null}
       </div>
     );

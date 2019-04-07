@@ -1,10 +1,11 @@
 import React from "react";
 
 export default class UserListing extends React.PureComponent {
-  deleteUser() {
+  deleteUser(e) {
     const user_id = this.props._id;
     const { removeUserCallback } = this.props;
     removeUserCallback(user_id);
+    e.stopPropagation();
     console.log(this.props);
   }
 
