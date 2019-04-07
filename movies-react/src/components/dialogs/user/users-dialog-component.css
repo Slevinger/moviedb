@@ -1,4 +1,4 @@
-.users__dialog {
+.dialog__ {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -8,6 +8,16 @@
   padding: 100px;
   flex-direction: column;
   align-items: center;
+}
+.user__data {
+  height: 100px;
+}
+.hide {
+  display: none;
+}
+
+.display {
+  display: inherit;
 }
 
 .user__listing {

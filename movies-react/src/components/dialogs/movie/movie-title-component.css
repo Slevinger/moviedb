@@ -1,0 +1,35 @@
+.movie-title-component {
+  width: fit-content;
+  min-height: 600px;
+  background-color: aliceblue;
+}
+.movie__title {
+  color: white;
+  display: flex;
+  position: absolute;
+  font-size: x-large;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 5px;
+}
+.movie__overview {
+  max-width: 330px;
+  font-size: small;
+  font-family: serif;
+  text-align: left;
+  padding: 10px;
+}
+
+.overview__title {
+  justify-self: left;
+  display: flex;
+  margin: 5px 5px 0px 5px;
+}
+
+.movie__poster {
+  border: thin solid;
+  width: 100%;
+}
+.release__date {
+  flex-direction: row;
+  display: flex;
+}

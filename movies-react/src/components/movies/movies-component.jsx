@@ -1,7 +1,6 @@
 import React from "react";
 import MovieComponenet from "./movie/movie-component";
 import Menu from "../menu/menu-component";
-
 import axios from "axios";
 import "./movies-component.css";
 
@@ -14,6 +13,7 @@ export default class MoviesComponenet extends React.PureComponent {
 
     this.likeMovie = this.likeMovie.bind(this);
 
+    // favorites is kept as an array , so i transform it to a map
     let fav = props.favorites
       ? Object.values(props.favorites).reduce((acc, id) => {
           acc[id] = true;
@@ -46,7 +46,7 @@ export default class MoviesComponenet extends React.PureComponent {
 
   render() {
     const { movies, favorites } = this.state;
-    const { show_favorites } = this.props;
+    const { show_favorites, setState } = this.props;
     return (
       <div className="movies__container">
         {movies &&
@@ -59,6 +59,7 @@ export default class MoviesComponenet extends React.PureComponent {
                   movie={movie}
                   likeMovie={this.likeMovie}
                   isLiked={isLiked}
+                  setState={setState}
                 />
               );
             })}{" "}

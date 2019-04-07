@@ -25,6 +25,7 @@ class APIUsersDb {
           user.password = password;
           user.email = email;
           this.dbo.collection("users").insertOne(user);
+          respond(200, user);
         }
       }
     } catch (err) {

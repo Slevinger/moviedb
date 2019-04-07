@@ -16,6 +16,10 @@ export default class LoginSignupComponent extends React.PureComponent {
     };
   }
 
+  goBack() {
+    this.setState({ screen: "none" });
+  }
+
   buttonClicked(e) {
     let screen = e.target.id;
     this.setState({ ...this.state, screen });
@@ -32,29 +36,34 @@ export default class LoginSignupComponent extends React.PureComponent {
   doLogin() {
     const email = this.getValueFromInput("#email__");
     const password = this.getValueFromInput("#password__");
-    const { doLogin } = this.props;
-
-    doLogin(email, password);
+    const re_password = this.getValueFromInput("#password__r");
+    const { doLogin, register } = this.props;
+    const map = { login: doLogin, signup: register };
+    try {
+      this.setState({ ...this.state, errorMessage: "" });
+      map[this.state.screen](email, password, re_password);
+    } catch (errorMessage) {
+      this.setState({ ...this.state, errorMessage });
+    }
     // const email = this.getValueFromInput();
   }
 
   renderComponenet() {
     const { screen } = this.state;
-
+    const { error } = this.props.appState;
     return (
       <div className="login-wrapper">
+        <span className="error__message">{error}</span>
         <input
           class="txt__login__form"
           id="email__"
           type="text"
-          value="test"
           placeholder="e-mail"
         />
         <input
           class="txt__login__form"
           id="password__"
           type="password"
-          value="12345678"
           placeholder="password"
         />
         {screen === "signup" ? (
@@ -67,9 +76,9 @@ export default class LoginSignupComponent extends React.PureComponent {
         ) : null}
         <div className="form__btns">
           <div className="form__btn" onClick={this.doLogin.bind(this)}>
-            Login
+            {this.state.screen}
           </div>
-          <div className="form__btn" onClick={this.goBack}>
+          <div className="form__btn" onClick={this.goBack.bind(this)}>
             Back
           </div>
         </div>

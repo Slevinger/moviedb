@@ -4,17 +4,20 @@
   margin: 8px;
   position: relative;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0);
 }
 
 .movie-image {
   width: 100%;
   max-height: 300px;
   border-radius: 8px;
-  transition: width 200ms ease-in-out;
+
+  transition: width 200ms ease-in-out, color 100ms linear;
 }
 
 .movie:hover {
   transform: scale(1.01);
+  color: white;
 }
 
 .like-star-wrapper {
@@ -40,5 +43,12 @@
   flex-wrap: wrap;
   height: fit-content;
 }
-.like-star {
+
+.move__title__title {
+  position: absolute;
+  top: 0px;
+  font-size: x-large;
+  margin: 15px;
+  background-color: rgba(50, 50, 50, 0.1);
+  transition: color 100ms ease-in-out;
 }

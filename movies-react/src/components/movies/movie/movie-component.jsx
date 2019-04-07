@@ -13,13 +13,22 @@ export default class MovieComponenet extends React.PureComponent {
     likeMovie(movie.id);
   }
 
+  onClick(e) {
+    const { movie } = this.props;
+    this.props.setState({ dialog: "movieTitle", movie });
+    e.preventDefault();
+    console.log(movie);
+  }
+
   render() {
     const { movie, isLiked } = this.props;
 
     return (
       <div class="movie">
+        <text className="move__title__title">{movie.title}</text>
         <img
           class="movie-image"
+          onClick={this.onClick.bind(this)}
           src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
         />
         <div class="like-star-wrapper" onClick={this.likeMovie}>

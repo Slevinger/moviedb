@@ -3,22 +3,18 @@ import React from "react";
 export default class MenuItem extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      isPressed: false
-    };
   }
 
   click(e) {
     const { onClick, isPressed } = this.props;
-    this.setState({ ...this.state, isPressed: !isPressed });
-    onClick(e);
+    this.props.setState({ isPressed: !isPressed });
   }
 
   render() {
-    const { children, ...others } = this.props;
+    const { isPressed, children, ...others } = this.props;
     return (
       <div
-        className={`menu__item ${this.state.isPressed ? "selected" : ""}`}
+        className={`menu__item ${isPressed ? "selected" : ""}`}
         onMouseOut={e => {
           e.stopPropagation();
         }}

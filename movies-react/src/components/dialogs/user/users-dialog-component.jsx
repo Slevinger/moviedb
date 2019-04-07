@@ -2,12 +2,13 @@ import React from "react";
 import "./users-dialog-component.css";
 import UserListing from "./user-listing-component";
 import axios from "axios";
+import UserStatisticsPanel from "./statistics-component";
 
 export default class UsersDialog extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      userlist: []
+      users: []
     };
   }
 
@@ -15,34 +16,29 @@ export default class UsersDialog extends React.PureComponent {
     axios
       .post("http://localhost:8080/users/remove", { user_id })
       .then(({ data }) => {
-        const userlist = this.state.userlist.filter(obj => obj._id !== user_id);
-        this.setState({ ...this.state, userlist });
+        const users = this.state.users.filter(obj => obj._id !== user_id);
+        this.setState({ ...this.state, users });
       });
-    console.log(user_id);
-  }
-  removeDialog(e) {
-    if (!e.target.classList.contains("user__listing")) {
-      this.props.setState({ dialog: null });
-    }
   }
 
-  getUsers(){
-    const p = const { token } = this.props;
+  getUsers() {
+    const { token } = this.props;
     const user_id = this.props.userId;
-    axios
-      .post("http://localhost:8080/users/get", { user_id, token });
+    const p = axios.post("http://localhost:8080/users/get", { user_id, token });
     return p;
   }
 
   componentDidMount() {
-      this.getUsers().then(({ data }) => {
-        this.setState({ ...this.state, userlist: data.message });
-      });
+    this.getUsers().then(({ data }) => {
+      this.setState({ ...this.state, users: data.message });
+    });
   }
   render() {
+    const { users } = this.state;
     return (
-      <div className="users__dialog" onClick={this.removeDialog.bind(this)}>
-        {this.state.userlist.map(user => (
+      <div className="dialog__" onClick={this.props.onClick.bind(this)}>
+        {users.length && <UserStatisticsPanel users={users} />}
+        {users.map(user => (
           <UserListing
             {...user}
             removeUserCallback={this.removeUser.bind(this)}

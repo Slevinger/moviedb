@@ -39,6 +39,10 @@ export default class Menu extends React.PureComponent {
     this.props.setState({ dialog: "users" });
   }
 
+  logOut() {
+    this.props.setState({ token: "" });
+  }
+
   componentDidMount() {
     this.state.show_favorites = this.props.show_favorites;
   }
@@ -49,6 +53,7 @@ export default class Menu extends React.PureComponent {
 
   renderMenu() {
     const { show_favorites } = this.state;
+    const { appState } = this.props;
     return (
       <div className="menu__hovered">
         <text>menu</text>
@@ -58,8 +63,13 @@ export default class Menu extends React.PureComponent {
         >
           Favorites
         </MenuItem>
-        <MenuItem isPressed={false} onClick={this.showUsers.bind(this)}>
-          Users
+        {appState.permissions === "admin" ? (
+          <MenuItem isPressed={false} onClick={this.showUsers.bind(this)}>
+            Users
+          </MenuItem>
+        ) : null}
+        <MenuItem isPressed={false} onClick={this.logOut.bind(this)}>
+          Log out
         </MenuItem>
       </div>
     );
