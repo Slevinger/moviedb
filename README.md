@@ -24,6 +24,8 @@ full project, Server : (moviedb), Client : (movies-react)
 
 ### gogo `./moviedb/movies-react`
 
+### EXECUTE `npm install`
+
 ## EXECUTE `npm start`
 
 ### you can create regular users via the app
