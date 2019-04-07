@@ -1,4 +1,4 @@
-#Sort summary
+# Sort summary
 
 since i had little time to build, a client a server and design it
 unfortunately i had no time for documentation, and i am aware of some bugs,
@@ -12,7 +12,7 @@ full project, Server : (moviedb), Client : (movies-react)
 
 # first of all to start
 
-## 'docker pull mongo'
+## `docker pull mongo`
 
 ## `docker run --name some-mongo -d mongo -p 27017:27017`
 
