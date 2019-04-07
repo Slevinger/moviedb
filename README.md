@@ -1,10 +1,10 @@
-# since i had little time to build, a client a server and design it
+since i had little time to build, a client a server and design it
 
-# unfortunately i had no time for documentation, and i am aware of some bugs,
+unfortunately i had no time for documentation, and i am aware of some bugs,
 
-# i hope that doing it in react will no affect my results
+i hope that doing it in react will no affect my results
 
-# i learned it for this.
+i learned it for this.
 
 # moviedb
 
