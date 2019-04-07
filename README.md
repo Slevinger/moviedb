@@ -1,4 +1,4 @@
-# Sort summary
+# Short summary
 
 since i had little time to build, a client a server and design it
 unfortunately i had no time for documentation, and i am aware of some bugs,
@@ -10,7 +10,7 @@ admin@selina.com, his password is 12345
 
 full project, Server : (moviedb), Client : (movies-react)
 
-# first of all to start
+### first of all to start
 
 ## `docker pull mongo`
 
