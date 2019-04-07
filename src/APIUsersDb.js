@@ -169,10 +169,10 @@ class APIUsersDb {
     try {
       if (user_id && favorite_id) {
         const res = await this.dbo
-          .collection("events")
+          .collection("users")
           .updateOne(
             { _id: new ObjectId(user_id) },
-            { $addToSet: { todo_lists: favorite_id } }
+            { $addToSet: { favorites: favorite_id } }
           );
       } else {
         respond(
@@ -216,8 +216,8 @@ class APIUsersDb {
         this.dbo
           .collection("users")
           .update(
-            { _id: ObjectId(event_id) },
-            { $pull: { todo_lists: favorite_id } },
+            { _id: ObjectId(user_id) },
+            { $pull: { favorites: favorite_id } },
             { multi: true }
           );
       }

@@ -1,5 +1,7 @@
 import React from "react";
 import MovieComponenet from "./movie/movie-component";
+import Menu from "../menu/menu-component";
+
 import axios from "axios";
 import "./movies-component.css";
 
@@ -12,9 +14,17 @@ export default class MoviesComponenet extends React.PureComponent {
 
     this.likeMovie = this.likeMovie.bind(this);
 
+    let fav = props.favorites
+      ? Object.values(props.favorites).reduce((acc, id) => {
+          acc[id] = true;
+          return acc;
+        }, {})
+      : {};
+
     this.state = {
       movies: null,
-      favorites: {}
+      favorites: fav,
+      show_favorites: false
     };
   }
 
@@ -26,27 +36,33 @@ export default class MoviesComponenet extends React.PureComponent {
 
   likeMovie(movieId) {
     const { favorites } = this.state;
-
-    const newFavorites = { ...favorites, [movieId]: true };
+    const newFavorites = { ...favorites, [movieId]: !favorites[movieId] };
+    const url = `http://localhost:8080${
+      newFavorites[movieId] ? "/user/add/favorite" : "/user/remove/favorite"
+    }`;
+    axios.post(url, { movie_id: movieId, user_id: this.props._id });
     this.setState({ favorites: newFavorites });
   }
 
   render() {
     const { movies, favorites } = this.state;
-
+    const { show_favorites } = this.props;
     return (
-      movies &&
-      movies.map(movie => {
-        const isLiked = favorites[movie.id];
-
-        return (
-          <MovieComponenet
-            movie={movie}
-            likeMovie={this.likeMovie}
-            isLiked={isLiked}
-          />
-        );
-      })
+      <div className="movies__container">
+        {movies &&
+          movies
+            .filter(movie => (show_favorites ? favorites[movie.id] : 1))
+            .map(movie => {
+              const isLiked = favorites[movie.id];
+              return (
+                <MovieComponenet
+                  movie={movie}
+                  likeMovie={this.likeMovie}
+                  isLiked={isLiked}
+                />
+              );
+            })}{" "}
+      </div>
     );
   }
 }

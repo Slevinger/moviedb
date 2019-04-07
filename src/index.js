@@ -83,19 +83,17 @@ app.post("/users/get", async function(req, res) {
 
 app.post("/user/remove/favorite", async function(req, res) {
   let respond = response(res);
-  const userId = req.body.user_id;
-  const fovoriteId = req.body.focorite_id; // todo get it from the event id
-  await db.usersApi.removeFromFavorites(userId, fovoriteId, respond);
+  const user_id = req.body.user_id;
+  const movie_id = req.body.movie_id; // todo get it from the event id
+  await db.usersApi.removeFromFavorites(user_id, movie_id, respond);
   //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
   respond(200, "success");
 });
 
 app.post("/user/add/favorite", async function(req, res) {
   let respond = response(res);
-  const userId = req.body.user_id;
-  const fovoriteId = req.body.focorite_id; // todo get it from the event id
-  await db.usersApi.addToFavorites(userId, fovoriteId, respond);
-  //let response = helper.guessKey(JSON.parse(textToDecrypt), keySize);
+  const { user_id, movie_id } = req.body;
+  await db.usersApi.addToFavorites(user_id, movie_id, respond);
   respond(200, "success");
 });
 

@@ -47,12 +47,14 @@ export default class LoginSignupComponent extends React.PureComponent {
           class="txt__login__form"
           id="email__"
           type="text"
+          value="test"
           placeholder="e-mail"
         />
         <input
           class="txt__login__form"
           id="password__"
           type="password"
+          value="12345678"
           placeholder="password"
         />
         {screen === "signup" ? (
@@ -64,7 +66,7 @@ export default class LoginSignupComponent extends React.PureComponent {
           />
         ) : null}
         <div className="form__btns">
-          <div className="form__btn" onClick={this.doLogin}>
+          <div className="form__btn" onClick={this.doLogin.bind(this)}>
             Login
           </div>
           <div className="form__btn" onClick={this.goBack}>
@@ -78,10 +80,18 @@ export default class LoginSignupComponent extends React.PureComponent {
   renderToggle() {
     return (
       <div className="login-wrapper">
-        <div className="form__btn" id="login" onClick={this.buttonClicked}>
+        <div
+          className="form__btn"
+          id="login"
+          onClick={this.buttonClicked.bind(this)}
+        >
           Login
         </div>
-        <div className="form__btn" id="signup" onClick={this.buttonClicked}>
+        <div
+          className="form__btn"
+          id="signup"
+          onClick={this.buttonClicked.bind(this)}
+        >
           SignUp
         </div>
       </div>

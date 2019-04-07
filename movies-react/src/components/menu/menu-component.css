@@ -1,0 +1,44 @@
+.menu__floater {
+  float: left;
+  border-radius: 25px;
+  left: 25px;
+  position: absolute;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+}
+
+.menu__hovered {
+  width: 150px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.menu__icon {
+  flex-direction: row;
+  display: flex;
+  font-size: 40px;
+  width: 55px;
+  height: 60px;
+}
+.menu__item {
+  height: 20px;
+  border-color: lightgrey;
+  border-bottom: solid thin;
+  padding: 5px;
+  font-size: large;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu__item:hover {
+  font-weight: bold;
+}
+
+.menu__item.selected {
+  color: red;
+}
