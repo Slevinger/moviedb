@@ -1,16 +1,14 @@
 since i had little time to build, a client a server and design it
-
 unfortunately i had no time for documentation, and i am aware of some bugs,
-
 i hope that doing it in react will no affect my results
-
 i learned it for this.
 
 # moviedb
 
-# on initiaiation an admin user is created he is called admin@selina.com
+on initiaiation an admin user is created he is called
+admin@selina.com, his password is 12345
 
-# a full project, Server : (moviedb), Client : (movies-react)
+full project, Server : (moviedb), Client : (movies-react)
 
 # first of all to start
 
