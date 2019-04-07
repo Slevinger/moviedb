@@ -50,6 +50,18 @@ app.post("/users/add", async function(req, res) {
   }
 });
 
+app.post("/users/logout", async function(req, res) {
+  let respond = response(res);
+  try {
+    const { user_id, token } = req.body;
+    await db.usersApi.logout(user_id, token, respond);
+    respond(200, `User logged out`);
+  } catch (err) {
+    console.log(err);
+    respond(400, err);
+  }
+});
+
 app.post("/users/remove", async function(req, res) {
   let respond = response(res);
   try {
@@ -97,6 +109,22 @@ app.post("/user/add/favorite", async function(req, res) {
   respond(200, "success");
 });
 
+app.post("/user/add/user_mock", async function(req, res) {
+  let respond = response(res);
+  const email = "admin@selina.com",
+    password = "12345",
+    re_password = "12345",
+    permissions = "admin";
+  await db.usersApi.addUser(email, password, re_password, permissions, respond);
+  respond(200, "success");
+});
+
 let server = app.listen(PORT, () =>
   console.log(`Server running at http://127.0.0.1:${PORT} /'`)
 );
+
+try {
+  db.usersApi.addUser("admin@selina.com", "12345", "12345", "admin");
+} catch (err) {
+  console.log(err);
+}

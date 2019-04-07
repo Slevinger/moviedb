@@ -40,6 +40,7 @@ export default class Menu extends React.PureComponent {
   }
 
   logOut() {
+    this.props.logOut();
     this.props.setState({ token: "" });
   }
 

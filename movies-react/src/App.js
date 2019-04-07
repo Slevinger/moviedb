@@ -7,6 +7,11 @@ import UsersDialog from "./components/dialogs/user/users-dialog-component";
 import MovieTitle from "./components/dialogs/movie/movie-title-component";
 import axios from "axios";
 
+axios
+  .post("http://localhost:8080/user/add/user_mock", {})
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+
 class App extends Component {
   constructor() {
     super();
@@ -35,6 +40,20 @@ class App extends Component {
         this.doLogin(email, password);
       })
       .catch(({ response }) => {
+        debugger;
+        self.setState({ ...this.state, error: response.data.message });
+      });
+  }
+
+  logOut(email, token) {
+    var self = this;
+    axios
+      .post("http://localhost:8080/users/logout", { email, token })
+      .then(({ data }) => {
+        console.log(data.message);
+      })
+      .catch(({ response }) => {
+        debugger;
         self.setState({ ...this.state, error: response.data.message });
       });
   }
@@ -105,6 +124,7 @@ class App extends Component {
           visible={!!this.state.token}
           setState={this.setAppState.bind(this)}
           appState={this.state}
+          logOut={this.logOut.bind(this)}
         />
         {this.state.token ? (
           <MoviesComponenet
