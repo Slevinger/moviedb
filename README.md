@@ -16,16 +16,14 @@ full project, Server : (moviedb), Client : (movies-react)
 
 ## `docker run --name some-mongo -d mongo -p 27017:27017`
 
-### goto ./moviedb
+### goto `./moviedb`
 
-## EXECUTE `npm install`
+### EXECUTE `npm install`
 
-# EXECUTE npm start -> see that the server starts
+### EXECUTE `npm start` -> see that the server starts
 
-# gogo ./movies-react/
+### gogo `./moviedb/movies-react`
 
-# EXECUTE npm start
+## EXECUTE `npm start`
 
-# an admin with the credentials email: admin@selina.com, password: 12345
-
-# you can create regular users via the app
+### you can create regular users via the app
